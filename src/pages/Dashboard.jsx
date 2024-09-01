@@ -85,7 +85,6 @@ function Dashboard() {
       setTransactions(newArr);
       calculateBalance();
     } catch (error) {
-      // console.error("Error adding document", error);
       if (!many) {
         toast.error("Couldn't add Transaction!");
       }
@@ -104,7 +103,7 @@ function Dashboard() {
             <div className="shadow-lg w-full md:w-96 p-4 rounded-md border border-slate-100">
               <h4 className="font-medium mb-3">Current Balance</h4>
               <p>₹ {TotalBalance}</p>
-              <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-md mt-3 hover:bg-blue-700">
+              <button className="w-full bg-blue-400 text-white px-4 py-2 rounded-md mt-3 hover:bg-blue-700" disabled>
                 Reset Balance
               </button>
             </div>
@@ -154,13 +153,11 @@ function Dashboard() {
               <NoTransaction />
             )}
           </div>
-          <div className="">
-            <TransactionTable
-              transactions={transactions}
-              addTransaction={addTransaction}
-              fetchTransactions={fetchTransactions}
-            />
-          </div>
+          <TransactionTable
+            transactions={transactions}
+            addTransaction={addTransaction}
+            fetchTransactions={fetchTransactions}
+          />
         </>
       )}
     </div>

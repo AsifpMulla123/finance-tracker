@@ -1,10 +1,11 @@
-import {Radio, Select, Table } from "antd";
+import { Radio, Select, Table } from "antd";
 import { parse, unparse } from "papaparse";
 import React, { useState } from "react";
+import { CiSearch } from "react-icons/ci";
 import { toast } from "react-toastify";
+const { Option } = Select;
 
-function TransactionTable({ transactions,addTransaction,fetchTransactions }) {
-  const { Option } = Select;
+function TransactionTable({ transactions, addTransaction, fetchTransactions }) {
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
   const [sortKey, setSortKey] = useState("");
@@ -89,23 +90,30 @@ function TransactionTable({ transactions,addTransaction,fetchTransactions }) {
   return (
     <div className="mt-8">
       <div className="flex justify-between items-center gap-4 mb-4">
-        <input
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search by Name"
-          className="border border-gray-400 rounded-md py-1 px-4"
-        />
-        <div className="flex items-center justify-center gap-8">
-          <Select
-            placeholder="Filter"
-            allowClear
-            value={typeFilter}
-            onChange={(value) => setTypeFilter(value)}
-          >
-            <Option value="">All</Option>
-            <Option value="income">Income</Option>
-            <Option value="expense">Expense</Option>
-          </Select>
+        <div className="relative">
+          <CiSearch size={18} className="absolute mt-1.5 ml-1" />
+          <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search by Name"
+            className="border border-gray-400 rounded-md py-1 px-7 focus:outline-none"
+          />
+        </div>
+        <Select
+          placeholder="Filter"
+          allowClear
+          value={typeFilter}
+          onChange={(value) => setTypeFilter(value)}
+          className="w-32"
+        >
+          <Option value="">All</Option>
+          <Option value="income">Income</Option>
+          <Option value="expense">Expense</Option>
+        </Select>
+      </div>
+      <div>
+        <div className="flex justify-between items-center w-full mb-4 flex-wrap gap-4">
+          <h2 className="">My Transactions</h2>
           <Radio.Group
             value={sortKey}
             onChange={(e) => setSortKey(e.target.value)}
@@ -115,8 +123,7 @@ function TransactionTable({ transactions,addTransaction,fetchTransactions }) {
             <Radio.Button value="date">Sort by Date</Radio.Button>
             <Radio.Button value="amount">Sort by Amount</Radio.Button>
           </Radio.Group>
-
-          <div className="flex gap-2 justify-center items-center">
+          <div className="flex gap-4">
             <button
               className="border border-gray-300 text-blue-500 text-sm p-2 rounded-md hover:bg-blue-500 hover:text-white"
               onClick={exportCSV}
@@ -139,8 +146,8 @@ function TransactionTable({ transactions,addTransaction,fetchTransactions }) {
             />
           </div>
         </div>
+        <Table dataSource={sortedTransactions} columns={columns} />
       </div>
-      <Table dataSource={sortedTransactions} columns={columns} />
     </div>
   );
 }

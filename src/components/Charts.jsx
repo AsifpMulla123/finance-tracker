@@ -22,9 +22,9 @@ function Charts({ sortedTransactions }) {
   }, {});
   const config = {
     data: data,
-    width: 800,
-    height: 400,
-    autoFit: false,
+    // width: 800,
+    // height: 400,
+    autoFit: true,
     xField: "date",
     yField: "amount",
     point: {
@@ -38,24 +38,26 @@ function Charts({ sortedTransactions }) {
     },
   };
   const spendingConfig = {
-    data: spendingData,
-    width: 500,
+    data: Object.values(spendingData),
+    // data: spendingData,
+    // width: 500,
+    autoFit: true,
     angleField: "amount",
     colorField: "tag",
   };
   let chart;
   let Piechart;
   return (
-    <div className="flex justify-center items-center gap-4 flex-wrap w-full">
-      <div className="shadow-xl p-8 rounded-lg border border-slate-300">
+    <div className="flex justify-center items-center gap-4 flex-wrap md:flex-nowrap w-full">
+      <div className="shadow-xl p-8 rounded-lg border border-slate-300 w-full md:w-1/2">
         <h2 className="mb-6">Your Analytics</h2>
         <Line
           {...config}
           onReady={(chartInstance) => (chart = chartInstance)}
-          className="w-1/2"
+          className="w-full"
         />
       </div>
-      <div className="shadow-xl p-8 rounded-lg border border-slate-300">
+      <div className="shadow-xl p-8 rounded-lg border border-slate-300 w-full md:w-1/2">
         <h2 className="mb-6">Your Spendings</h2>
         <Pie
           {...spendingConfig}
