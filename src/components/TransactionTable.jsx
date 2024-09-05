@@ -117,7 +117,7 @@ function TransactionTable({ transactions, addTransaction, fetchTransactions }) {
           <Radio.Group
             value={sortKey}
             onChange={(e) => setSortKey(e.target.value)}
-            className="flex"
+            className="flex flex-wrap gap-2"
           >
             <Radio.Button value="">No sort</Radio.Button>
             <Radio.Button value="date">Sort by Date</Radio.Button>
@@ -146,7 +146,13 @@ function TransactionTable({ transactions, addTransaction, fetchTransactions }) {
             />
           </div>
         </div>
-        <Table dataSource={sortedTransactions} columns={columns} />
+        <div className="overflow-x-auto">
+          <Table
+            dataSource={sortedTransactions}
+            columns={columns}
+            className="min-w-full"
+          />
+        </div>
       </div>
     </div>
   );
